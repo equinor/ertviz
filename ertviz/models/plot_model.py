@@ -1,4 +1,5 @@
 import math
+import pandas as pd
 import logging
 import plotly.graph_objects as go
 import plotly.figure_factory as ff
@@ -263,6 +264,53 @@ class MultiHistogramPlotModel:
 
         for name, (prior, color) in self._priors.items():
             fig.add_trace(_create_prior_plot(name, prior, _min, _max, color))
+        return fig
+
+
+class ParalellCoordinates:
+    def __init__(self, data_df_dict, colors):
+        self._data_df_dict = data_df_dict
+        self._colors = colors
+        self.selection = []
+
+    @property
+    def plot_ids(self):
+        return {plot_idx: parameter for plot_idx, parameter in enumerate(self.data)}
+
+    @property
+    def data(self):
+        return self._data_df_dict
+
+    @property
+    def repr(self):
+        fig = go.Figure()
+        dimensions = []
+
+        data_df = pd.concat(list(self.data.values()))
+        ensemble_ids = data_df["ensemble_id"]
+        data_df = data_df.drop("ensemble_id", axis=1)
+        for parameter in data_df:
+            dimensions.append(dict(label=parameter, values=data_df[parameter]))
+        fig.add_trace(
+            go.Parcoords(
+                line=dict(
+                    color=ensemble_ids,
+                    colorscale=self._colors,
+                    showscale=True,
+                    colorbar=dict(
+                        tickvals=list(range(0, len(self.data))),
+                        ticktext=list(self.data.keys()),
+                        len=0.2 * len(self.data),
+                        title="Ensemble",
+                    ),
+                ),
+                dimensions=dimensions,
+                labelangle=45,
+                labelside="bottom",
+            )
+        )
+        fig.update_layout(clickmode="event+select")
+        fig.update_layout(uirevision=True)
         return fig
 
 

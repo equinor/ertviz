@@ -2,6 +2,7 @@ import dash_html_components as html
 import dash_core_components as dcc
 from .paremeter_view import parameter_view
 from .ensemble_selector_view import ensemble_selector_view
+from .paralell_coordinates_view import paralell_coordinates_view
 
 
 def response_view(parent, index=0):
