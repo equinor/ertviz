@@ -4,3 +4,4 @@ from .multi_response_controller import multi_response_controller
 from .observation_response_controller import observation_response_controller
 from .multi_parameter_controller import multi_parameter_controller
 from .parameter_comparison_controller import parameter_comparison_controller
+from .parameter_selector_controller import parameter_selector_controller
