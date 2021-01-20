@@ -23,16 +23,13 @@ def parameter_comparison_controller(parent, app):
 
         data = {}
         colors = []
-        idx = 0
-        for ensemble_id, color in selected_ensembles.items():
+        for idx, (ensemble_id, color) in enumerate(selected_ensembles.items()):
             ensemble = load_ensemble(parent, ensemble_id)
-            ens_key = ensemble._name
+            ens_key = str(ensemble)
             df = ensemble.parameters_df(parameters)
             df["ensemble_id"] = idx
             data[ens_key] = df.copy()
             colors.append([idx / len(selected_ensembles), color["color"]])
             colors.append([(idx + 1) / len(selected_ensembles), color["color"]])
-            idx += 1
-        print(colors)
         parent.parallel_plot = ParalellCoordinates(data, colors)
         return parent.parallel_plot.repr
