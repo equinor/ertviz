@@ -8,12 +8,16 @@ from .paralell_coordinates_view import paralell_coordinates_view
 
 def parameter_selector_view(parent):
     return html.Div(
-        className="ert-dropdown-container",
         children=[
-            dcc.Input(
-                id=parent.uuid("parameter-selector-filter"),
-                type="search",
-                placeholder="",
+            html.Div(
+                [
+                    html.Label("Search substring:"),
+                    dcc.Input(
+                        id=parent.uuid("parameter-selector-filter"),
+                        type="search",
+                        placeholder="",
+                    ),
+                ],
             ),
             wcc.Select(
                 id=parent.uuid("parameter-selector-multi"),
