@@ -1,4 +1,3 @@
-import dash
 from dash.exceptions import PreventUpdate
 from dash.dependencies import Input, Output, State
 from ertviz.models import (
@@ -8,23 +7,6 @@ from ertviz.models import (
 
 
 def parameter_comparison_controller(parent, app):
-    @app.callback(
-        Output(parent.uuid("parameter-selector-multi"), "options"),
-        [
-            Input(parent.uuid("ensemble-selection-store"), "data"),
-        ],
-    )
-    def update_parameters_options(selected_ensembles):
-        if not selected_ensembles:
-            raise PreventUpdate
-        ensemble_id, _ = selected_ensembles.popitem()
-        ensemble = load_ensemble(parent, ensemble_id)
-        options = [
-            {"label": parameter_key, "value": parameter_key}
-            for parameter_key in ensemble.parameters
-        ]
-        return options
-
     @app.callback(
         Output(
             {"id": parent.uuid("paralell-coor"), "type": parent.uuid("graph")},
