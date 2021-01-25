@@ -22,14 +22,13 @@ def parameter_comparison_controller(parent, app):
             raise PreventUpdate
 
         data = {}
-        colors = []
+        colors = {}
         for idx, (ensemble_id, color) in enumerate(selected_ensembles.items()):
             ensemble = load_ensemble(parent, ensemble_id)
             ens_key = str(ensemble)
             df = ensemble.parameters_df(parameters)
             df["ensemble_id"] = idx
             data[ens_key] = df.copy()
-            colors.append([idx / len(selected_ensembles), color["color"]])
-            colors.append([(idx + 1) / len(selected_ensembles), color["color"]])
+            colors[ens_key] = color["color"]
         parent.parallel_plot = ParallelCoordinates(data, colors)
         return parent.parallel_plot.repr

@@ -284,18 +284,25 @@ class ParallelCoordinates:
     @property
     def repr(self):
         fig = go.Figure()
-        dimensions = []
-
+        # rearange colors
+        colors = []
+        for idx, ens in enumerate(self._colors):
+            colors.append([idx / len(self._colors), self._colors[ens]])
+            colors.append([(idx + 1) / len(self._colors), self._colors[ens]])
+        # create a single dataframe, where all ensemble parameters are stacked
         data_df = pd.concat(list(self.data.values()))
+        # drop a column with ids
         ensemble_ids = data_df["ensemble_id"]
         data_df = data_df.drop("ensemble_id", axis=1)
+        # create parallel coordinates dimension list
+        dimensions = []
         for parameter in data_df:
             dimensions.append(dict(label=parameter, values=data_df[parameter]))
         fig.add_trace(
             go.Parcoords(
                 line=dict(
                     color=ensemble_ids,
-                    colorscale=self._colors,
+                    colorscale=colors,
                     showscale=True,
                     colorbar=dict(
                         tickvals=list(range(0, len(self.data))),
