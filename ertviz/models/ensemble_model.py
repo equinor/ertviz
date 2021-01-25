@@ -90,7 +90,6 @@ class EnsembleModel:
             parameter: self.parameters[parameter].data_df().values.flatten()
             for parameter in parameter_list
         }
-        print(data)
         return pd.DataFrame(data=data)
 
     @property
