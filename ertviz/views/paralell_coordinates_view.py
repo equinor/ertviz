@@ -4,7 +4,7 @@ import dash_core_components as dcc
 import ertviz.assets as assets
 
 
-def paralell_coordinates_view(parent):
+def parallel_coordinates_view(parent):
     return html.Div(
         [
             html.Div(
@@ -15,7 +15,7 @@ def paralell_coordinates_view(parent):
             ),
             dcc.Graph(
                 id={
-                    "id": parent.uuid("paralell-coor"),
+                    "id": parent.uuid("parallel-coor"),
                     "type": parent.uuid("graph"),
                 },
                 className="ert-graph",

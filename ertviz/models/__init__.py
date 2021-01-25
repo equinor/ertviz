@@ -34,7 +34,7 @@ from .plot_model import (
     HistogramPlotModel,
     MultiHistogramPlotModel,
     BoxPlotModel,
-    ParalellCoordinates,
+    ParallelCoordinates,
 )
 from .parameter_model import PriorModel, ParametersModel
 from .ensemble_model import EnsembleModel

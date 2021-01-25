@@ -3,7 +3,7 @@ import dash_core_components as dcc
 import webviz_core_components as wcc
 from .paremeter_view import parameter_view
 from .ensemble_selector_view import ensemble_selector_view
-from .paralell_coordinates_view import paralell_coordinates_view
+from .parallel_coordinates_view import parallel_coordinates_view
 
 
 def parameter_selector_view(parent):

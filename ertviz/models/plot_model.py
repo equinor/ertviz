@@ -267,7 +267,7 @@ class MultiHistogramPlotModel:
         return fig
 
 
-class ParalellCoordinates:
+class ParallelCoordinates:
     def __init__(self, data_df_dict, colors):
         self._data_df_dict = data_df_dict
         self._colors = colors

@@ -2,7 +2,7 @@ import dash_html_components as html
 from webviz_config import WebvizPluginABC
 from ertviz.views import (
     ensemble_selector_view,
-    paralell_coordinates_view,
+    parallel_coordinates_view,
     parameter_selector_view,
 )
 from ertviz.controllers import (
@@ -29,11 +29,11 @@ class ParameterComparison(WebvizPluginABC):
                     children=ensemble_selector_view(parent=self),
                 ),
                 html.Div(
-                    id=self.uuid("paralell-coor-content"),
+                    id=self.uuid("parallel-coor-content"),
                     children=[
                         html.H5("Multi parameter selector:"),
                         parameter_selector_view(parent=self),
-                        paralell_coordinates_view(parent=self),
+                        parallel_coordinates_view(parent=self),
                     ],
                 ),
             ]
