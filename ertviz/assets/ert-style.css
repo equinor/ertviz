@@ -71,3 +71,14 @@
     width: 50% ;
     float: left;
 }
+.ert-graph-paco{
+    width: 100% ;
+}
+.ert-view-container{
+    display: table;
+    width: 100%;
+    table-layout: auto;
+}
+.ert-view-cell{
+    display: table-cell;
+}

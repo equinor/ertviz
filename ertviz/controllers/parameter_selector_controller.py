@@ -7,7 +7,10 @@ from ertviz.models import (
 
 def parameter_selector_controller(parent, app):
     @app.callback(
-        Output(parent.uuid("parameter-selector-multi"), "options"),
+        [
+            Output(parent.uuid("parameter-selector-multi"), "options"),
+            Output(parent.uuid("parameter-selector-dropdown"), "options"),
+        ],
         [
             Input(parent.uuid("ensemble-selection-store"), "data"),
             Input(parent.uuid("parameter-selector-filter"), "value"),
@@ -30,4 +33,24 @@ def parameter_selector_controller(parent, app):
                 {"label": parameter_key, "value": parameter_key}
                 for parameter_key in ensemble.parameters
             ]
-        return options
+        return options, options
+
+    @app.callback(
+        Output(parent.uuid("parameter-selection-store"), "data"),
+        [
+            Input(parent.uuid("parameter-selector-multi"), "value"),
+        ],
+        State(parent.uuid("parameter-selection-store"), "data"),
+    )
+    def update_parameter_selection_store_multi(parameters, param_):
+        return {"multi": parameters}
+
+    @app.callback(
+        Output(parent.uuid("parameter-selection-store"), "data"),
+        [
+            Input(parent.uuid("parameter-selector-dropdown"), "value"),
+        ],
+        State(parent.uuid("parameter-selection-store"), "data"),
+    )
+    def update_parameter_selection_store_multi(parameters):
+        return {"dropdown": parameters}
